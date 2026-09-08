@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasteit – Support</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #fdfcf9;
+    --line: #e4e0d6;
+    --accent: #c4693a;
+    --muted: #6b6558;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+  }
+  header {
+    padding: 56px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 15px;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+  section {
+    margin-bottom: 48px;
+  }
+  section:last-child {
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  p {
+    margin: 0 0 14px;
+    font-size: 15.5px;
+  }
+  .contact-box {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .contact-box a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .contact-box a:hover {
+    text-decoration: underline;
+  }
+  details {
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+  }
+  details:first-of-type {
+    border-top: 1px solid var(--line);
+  }
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15.5px;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::before {
+    content: "+ ";
+    color: var(--accent);
+  }
+  details[open] summary::before {
+    content: "– ";
+  }
+  details p {
+    margin-top: 12px;
+    color: var(--muted);
+  }
+  footer {
+    text-align: center;
+    padding: 32px 24px 56px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Tasteit Support</h1>
+  <p>We're here to help</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Contact Us</h2>
+  <div class="contact-box">
+    <p>Have a question, found a bug, or need help with your account? Reach out and we'll get back to you as soon as we can.</p>
+    <p>Email: <a href="mailto:info@foodieswipe.com">info@foodieswipe.com</a></p>
+  </div>
+</section>
+
+<section>
+  <h2>Frequently Asked Questions</h2>
+
+  <details>
+    <summary>How do I delete my account?</summary>
+    <p>You can delete your account and all associated data directly from the app settings. If you have trouble finding this option, contact us and we'll take care of it for you.</p>
+  </details>
+
+  <details>
+    <summary>How does the nutrition estimate work?</summary>
+    <p>When you post a recipe, our AI automatically analyzes the photo and title to estimate calories, macros, and other nutritional information. These are approximations and not a substitute for professional nutritional advice.</p>
+  </details>
+
+  <details>
+    <summary>How do I report inappropriate content?</summary>
+    <p>Tap the "•••" menu on any post in the feed and select a reason for reporting. Our team reviews reports and takes action when content violates our guidelines.</p>
+  </details>
+
+  <details>
+    <summary>Can I edit or delete a recipe after posting it?</summary>
+    <p>Yes. Go to your profile, open the recipe you want to change, and use the edit or delete options at the top of the screen.</p>
+  </details>
+
+  <details>
+    <summary>Why can't I see recipes in my Following feed?</summary>
+    <p>The Following feed only shows recipes from people you follow. If you haven't followed anyone yet, switch to the For You feed to discover creators and recipes worth following.</p>
+  </details>
+
+  <details>
+    <summary>I forgot my password. What do I do?</summary>
+    <p>On the login screen, use the "Forgot password" option to receive a reset link by email.</p>
+  </details>
+
+</section>
+
+</main>
+
+<footer>
+  Tasteit &middot; info@foodieswipe.com
+</footer>
+
+</body>
+</html>
