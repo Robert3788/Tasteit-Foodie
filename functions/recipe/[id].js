@@ -202,7 +202,7 @@ ${image ? `<meta name="twitter:image" content="${escapeHtml(image)}" />` : ''}
   </div>
 
   <div class="sticky-bar">
-    <img class="sticky-icon" src="https://foodieswipe.com/tasteit-icon.png" alt="Tasteit" onerror="this.style.display='none'" />
+    <img class="sticky-icon" src="https://foodieswipe.com/image/icon.png" alt="Tasteit" onerror="this.style.display='none'" />
     <div class="sticky-text">
       <div class="name">Tasteit</div>
       <div class="sub">View full recipe, save & more</div>
