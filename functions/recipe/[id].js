@@ -234,6 +234,7 @@ export async function onRequestGet(context) {
   const sharedStyles = `
     * { box-sizing: border-box; margin:0; padding:0; }
     body { background:#000; color:#fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .sticky-bar { z-index: 50; }
     .gradient { position:absolute; left:0; right:0; bottom:0; height:65%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.92)); }
     .icon-item { display:flex; flex-direction:column; align-items:center; gap:4px; background:none; border:none; padding:0; color:#fff; }
     .icon-item svg { width:30px; height:30px; }
@@ -247,7 +248,7 @@ export async function onRequestGet(context) {
     .title { font-size:22px; font-weight:700; margin-bottom:6px; }
     .description { font-size:14px; color:#eee; line-height:1.4; margin-bottom:14px; }
     .view-recipe-btn { display:inline-block; background:#fff; color:#000; font-weight:700; font-size:13px; padding:9px 18px; border-radius:18px; border:none; cursor:pointer; }
-    .sticky-bar { position:fixed; left:0; right:0; bottom:0; background:rgba(20,20,20,0.97); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); display:flex; align-items:center; gap:12px; z-index: 20; }
+    .sticky-bar { background:rgba(20,20,20,0.97); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); display:flex; align-items:center; gap:12px; }
     .sticky-icon { width:38px; height:38px; border-radius:10px; flex-shrink:0; }
     .sticky-text { flex:1; min-width:0; }
     .sticky-text .name { font-weight:700; font-size:14px; }
@@ -256,7 +257,7 @@ export async function onRequestGet(context) {
 
     .panel-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:30; display:none; }
     .panel-overlay.open { display:block; }
-    .panel { position:fixed; left:0; right:0; bottom:0; max-height:88vh; background:#000; border-radius:20px 20px 0 0; overflow-y:auto; }
+    .panel { position:fixed; left:0; right:0; bottom:0; max-height:88vh; background:#000; border-radius:20px 20px 0 0; overflow-y:auto; touch-action: pan-y; }
     .panel-comments { background:#1a1a1a; padding:20px; padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
     .panel-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding: 16px 16px 0; }
     .panel-comments .panel-head { padding:0; margin-bottom:16px; }
@@ -312,18 +313,28 @@ export async function onRequestGet(context) {
     .bg-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .icon-col { position:absolute; right:14px; bottom:calc(256px + env(safe-area-inset-bottom, 0px)); display:flex; flex-direction:column; align-items:center; gap:22px; }
     .content { position:absolute; left:16px; right:90px; bottom:calc(100px + env(safe-area-inset-bottom, 0px)); }
+    .sticky-bar { position:fixed; left:0; right:0; bottom:0; }
   `;
 
   const desktopStyles = `
     html, body { min-height:100%; background:#0a0a0a; }
-    body { display:flex; justify-content:center; padding:40px 20px 140px; }
+    body { display:flex; justify-content:center; padding:40px 20px 140px; position:relative; }
     .phone-frame { position:relative; width:430px; max-width:100%; height:860px; border-radius:44px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.6); border: 1px solid #222; }
     .screen { position:relative; height:100%; width:100%; overflow:hidden; }
     .bg-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .icon-col { position:absolute; right:14px; bottom:296px; display:flex; flex-direction:column; align-items:center; gap:22px; }
     .content { position:absolute; left:16px; right:90px; bottom:140px; }
-    .sticky-bar { position:absolute; left:0; right:0; bottom:0; }
-    .panel-overlay, .toast { position:absolute; }
+    .sticky-bar {
+      position:fixed;
+      left:50%;
+      bottom:0;
+      transform: translateX(-215px);
+      width:430px;
+      max-width:100vw;
+      border-radius: 0;
+    }
+    .panel-overlay { position:fixed; }
+    .toast { position:fixed; left:50%; transform: translateX(-50%); width:398px; max-width:calc(100vw - 32px); }
   `;
 
   const html = `<!DOCTYPE html>
@@ -368,6 +379,55 @@ ${image ? `<meta name="twitter:image" content="${escapeHtml(image)}" />` : ''}
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
+
+    function enableSwipeToClose(panel, panelName) {
+      let startX = 0, startY = 0, currentX = 0, dragging = false, isHorizontal = null;
+
+      panel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        currentX = 0;
+        dragging = true;
+        isHorizontal = null;
+        panel.style.transition = 'none';
+      }, { passive: true });
+
+      panel.addEventListener('touchmove', (e) => {
+        if (!dragging) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        if (isHorizontal === null && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+          isHorizontal = Math.abs(dx) > Math.abs(dy) && dx > 0;
+        }
+        if (isHorizontal) {
+          currentX = Math.max(0, dx);
+          panel.style.transform = 'translateX(' + currentX + 'px)';
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      panel.addEventListener('touchend', () => {
+        if (!dragging) return;
+        dragging = false;
+        panel.style.transition = 'transform 0.22s ease';
+        if (isHorizontal && currentX > window.innerWidth / 3) {
+          panel.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            closePanel(panelName);
+            panel.style.transition = '';
+            panel.style.transform = '';
+          }, 220);
+        } else {
+          panel.style.transform = 'translateX(0)';
+        }
+      });
+    }
+
+    document.querySelectorAll('.panel-overlay .panel').forEach((panel) => {
+      const overlayId = panel.closest('.panel-overlay').id;
+      const panelName = overlayId.replace('-overlay', '');
+      enableSwipeToClose(panel, panelName);
+    });
   </script>
 </body>
 </html>`;
