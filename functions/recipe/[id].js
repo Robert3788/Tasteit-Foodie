@@ -258,7 +258,7 @@ export async function onRequestGet(context) {
     .panel-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:30; display:none; }
     .panel-overlay.open { display:block; }
     .panel { position:fixed; left:0; right:0; bottom:0; max-height:88vh; background:#000; border-radius:20px 20px 0 0; overflow-y:auto; touch-action: pan-y; }
-    .panel-comments { background:#1a1a1a; padding:20px; padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+    .panel-comments { background:#1a1a1a; padding:20px; padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
     .panel-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding: 16px 16px 0; }
     .panel-comments .panel-head { padding:0; margin-bottom:16px; }
     .panel-title { font-size:18px; font-weight:700; }
