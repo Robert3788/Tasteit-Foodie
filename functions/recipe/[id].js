@@ -168,11 +168,11 @@ ${image ? `<meta name="twitter:image" content="${escapeHtml(image)}" />` : ''}
   .screen { position:relative; height:100dvh; width:100%; overflow:hidden; }
   .bg-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .gradient { position:absolute; left:0; right:0; bottom:0; height:65%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.92)); }
-  .icon-col { position:absolute; right:14px; bottom:190px; display:flex; flex-direction:column; align-items:center; gap:22px; }
+  .icon-col { position:absolute; right:14px; bottom:calc(256px + env(safe-area-inset-bottom, 0px)); display:flex; flex-direction:column; align-items:center; gap:22px; }
   .icon-item { display:flex; flex-direction:column; align-items:center; gap:4px; background:none; border:none; padding:0; color:#fff; }
   .icon-item svg { width:30px; height:30px; }
   .icon-count { font-size:12px; font-weight:600; }
-  .content { position:absolute; left:16px; right:90px; bottom:34px; }
+  .content { position:absolute; left:16px; right:90px; bottom:calc(100px + env(safe-area-inset-bottom, 0px)); }
   .creator-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; width:fit-content; }
   .creator-avatar { width:32px; height:32px; border-radius:16px; object-fit:cover; background:#333; }
   .creator-avatar-placeholder { width:32px; height:32px; border-radius:16px; background:#333; display:flex; align-items:center; justify-content:center; font-size:14px; }
