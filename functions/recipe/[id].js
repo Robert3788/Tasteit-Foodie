@@ -155,7 +155,6 @@ export async function onRequestGet(context) {
         .join('')
     : `<div class="no-comments">No comments yet. Be the first in the app!</div>`;
 
-  // ScoreRing als SVG, exakt wie in der App (Kreis, Fortschrittsbogen, Prozentzahl in der Mitte)
   const ringSize = 72;
   const ringStroke = 6;
   const ringRadius = (ringSize - ringStroke) / 2;
@@ -333,9 +332,10 @@ export async function onRequestGet(context) {
       max-width:100vw;
       border-radius: 0;
     }
-.panel-overlay { position:fixed; }
-.panel { left:50%; transform: translateX(-215px); width:430px; max-width:100vw; }
-.toast { position:fixed; left:50%; transform: translateX(-50%); width:398px; max-width:calc(100vw - 32px); }
+    .panel-overlay { position:fixed; }
+    .panel { left:50%; transform: translateX(-215px); width:430px; max-width:100vw; }
+    .toast { position:fixed; left:50%; transform: translateX(-50%); width:398px; max-width:calc(100vw - 32px); }
+  `;
 
   const html = `<!DOCTYPE html>
 <html lang="en">
