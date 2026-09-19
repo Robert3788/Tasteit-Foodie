@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "DRR53UDN4X.com.tasteit.app",
+        "paths": ["/recipe/*"]
+      }
+    ]
+  }
+}
