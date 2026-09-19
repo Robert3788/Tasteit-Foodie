@@ -110,6 +110,9 @@ export async function onRequestGet(context) {
 <title>${escapeHtml(title)}</title>
 <meta property="og:title" content="${escapeHtml(title)}" />
 <meta property="og:description" content="${escapeHtml(description)}" />
+<meta property="og:image" content="https://foodieswipe.com/images/icon.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://foodieswipe.com/images/icon.png" />
 <style>
   html, body { margin:0; padding:0; height:100%; background:#000; color:#fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display:flex; align-items:center; justify-content:center; text-align:center; }
   .wrap { padding:32px; }
